@@ -1,0 +1,8 @@
+prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/devel
+
+Name: duckietown_gazebo
+Description: Description of duckietown_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: gazebo_ros duckietown_msgs

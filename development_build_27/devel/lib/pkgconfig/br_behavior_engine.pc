@@ -1,0 +1,8 @@
+prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/devel
+
+Name: br_behavior_engine
+Description: Description of br_behavior_engine
+Version: 0.0.0
+Cflags: -I/home/travis/build/BytesRobotics/br-core/catkin_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime
