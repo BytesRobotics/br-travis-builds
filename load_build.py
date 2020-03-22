@@ -2,6 +2,8 @@ import os
 import sys
 import shutil
 
+print("WARNING: BY LOADING A BUILD, YOU ARE REMOVING THE SRC FOLDER FOR YOUR CURRENT BR-CORE REPO. MAKE SURE ALL CHANGES ARE COMMITED AND PUSHED.")
+
 if os.path.exists(os.path.expanduser("~") + "/Github/br-core/catkin_ws"):
 	print("Default path found.")
 	path = os.path.expanduser("~") + "/Github/br-core/catkin_ws"
@@ -87,10 +89,30 @@ while not exists:
 
 print ("Loading " + build_list[int(build_choice) - 1])
 
+if os.path.exists(path + "/install"):
+	print("Deleting old install dir.")
+	shutil.rmtree(path + "/install")
+
+if os.path.exists(path + "/src"):
+	print("Deleting old src dir. Remember to re git clone when making new changes.")
+	shutil.rmtree(path + "/src")
+
 print("Copying install...")
 
 src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/install"
 dest = path + "/install"
+
+try:
+	shutil.copytree(src, dest)
+except shutil.Error as e:
+	print('Directory not copied, probably the same dir. Error: %s' % e)
+except OSError as e:
+	print('Directory not copied, probably doesnt exist. Error: %s' % e)
+
+print("Copying src...")
+
+src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/src"
+dest = path + "/src"
 
 try:
 	shutil.copytree(src, dest)
