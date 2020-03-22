@@ -2,26 +2,33 @@ import os
 import sys
 import shutil
 
-exists = False
+if os.path.exists(os.path.expanduser("~") + "/Github/br-core/catkin_ws"):
+	print("Default path found.")
+	path = os.path.expanduser("~") + "/Github/br-core/catkin_ws"
 
-while not exists:
-	path = os.path.expanduser("~") + "/" + input("What is the path (after home folder) to br-core's catkin_ws folder? >> ")
-	if os.path.exists(path) and os.path.exists(path + "/src"):
-		exists = True
-	elif os.path.exists(path) and not os.path.exists(path + "/src"):
-		print("The path you entered exists, but has no src directory.")
-		print("This may not be your br-core workspace.")
-		choice = input("Do you want to continue? [Y or N] >> ")
+else:
+	print("Could not find default location for br-core repo, manual input required.")
 
-		if choice == "Y":
+	exists = False
+
+	while not exists:
+		path = os.path.expanduser("~") + "/" + input("What is the path (after home folder) to br-core's catkin_ws folder? >> ")
+		if os.path.exists(path) and os.path.exists(path + "/src"):
 			exists = True
-		elif choice == "N":
-			print("Aborting.")
+		elif os.path.exists(path) and not os.path.exists(path + "/src"):
+			print("The path you entered exists, but has no src directory.")
+			print("This may not be your br-core workspace.")
+			choice = input("Do you want to continue? [Y or N] >> ")
+
+			if choice == "Y":
+				exists = True
+			elif choice == "N":
+				print("Aborting.")
+			else:
+				print("Not a choice, exiting.")
+				sys.exit()
 		else:
-			print("Not a choice, exiting.")
-			sys.exit()
-	else:
-		print("That is not a path")
+			print("That is not a path")
 
 exists = False
 
@@ -83,7 +90,7 @@ print ("Loading " + build_list[int(build_choice) - 1])
 print("Copying build...")
 
 src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/build"
-dest = path
+dest = path + "/build"
 
 try:
 	shutil.copytree(src, dest)
@@ -95,7 +102,7 @@ except OSError as e:
 print("Copying devel...")
 
 src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/devel"
-dest = path
+dest = path + "/devel"
 
 try:
 	shutil.copytree(src, dest)
