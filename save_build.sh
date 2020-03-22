@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=$1_build_$(date +"%Y-%m-%d-%I:%M-%p")
+dir=$1_build_$4
 
 mkdir $dir
 
