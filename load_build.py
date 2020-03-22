@@ -87,22 +87,10 @@ while not exists:
 
 print ("Loading " + build_list[int(build_choice) - 1])
 
-print("Copying build...")
+print("Copying install...")
 
-src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/build"
-dest = path + "/build"
-
-try:
-	shutil.copytree(src, dest)
-except shutil.Error as e:
-	print('Directory not copied, probably the same dir. Error: %s' % e)
-except OSError as e:
-	print('Directory not copied, probably doesnt exist. Error: %s' % e)
-
-print("Copying devel...")
-
-src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/devel"
-dest = path + "/devel"
+src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/install"
+dest = path + "/install"
 
 try:
 	shutil.copytree(src, dest)
