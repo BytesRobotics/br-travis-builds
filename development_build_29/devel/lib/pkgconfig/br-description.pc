@@ -1,0 +1,8 @@
+prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/devel
+
+Name: br-description
+Description: Description of br-description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
