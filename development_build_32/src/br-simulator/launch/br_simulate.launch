@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Start gazebo simulation -->
+  <include file="$(find br-simulator)/launch/better_physics_world.launch" />
+
+
+  <!-- Spawn the robot in gazebo -->
+  <include file="$(find br-simulator)/launch/spawn_gb.launch" />
+
+  <!-- Start robot contorllers -->
+  <include file="$(find br-control)/launch/br_control.launch">
+    <arg name="rviz"  value="false"/>
+  </include>
+
+  <!-- visualize robot using rviz -->
+  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find br-simulator)/rviz/br_sim.rviz" />
+
+</launch>
