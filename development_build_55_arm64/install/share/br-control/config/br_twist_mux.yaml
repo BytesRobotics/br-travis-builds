@@ -1,0 +1,19 @@
+topics:
+- name    : joy
+  topic   : joy/cmd_vel
+  timeout : 0.5
+  priority: 10
+- name    : behavior
+  topic   : behavior/cmd_vel
+  timeout : 0.5
+  priority: 5
+- name    : nav
+  topic   : nav/cmd_vel
+  timeout : 0.5
+  priority: 1
+
+locks:
+- name    : stop
+  topic   : stop
+  timeout : 0.0
+  priority: 255
