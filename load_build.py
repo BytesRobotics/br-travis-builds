@@ -1,36 +1,25 @@
 import os
 import sys
-import shutil
+import subprocess
+import time
+
+os.system("git pull")
 
 print("WARNING: BY LOADING A BUILD, YOU ARE REMOVING THE SRC FOLDER FOR YOUR CURRENT BR-CORE REPO. MAKE SURE ALL CHANGES ARE COMMITED AND PUSHED.")
 
-if os.path.exists(os.path.expanduser("~") + "/Github/br-core/catkin_ws"):
-	print("Default path found.")
-	path = os.path.expanduser("~") + "/Github/br-core/catkin_ws"
+exists = False
 
-else:
-	print("Could not find default location for br-core repo, manual input required.")
+while not exists:
+	shell_choice = input("Which shell do you use [bash:1 / zsh:2]? >> ")
 
-	exists = False
-
-	while not exists:
-		path = os.path.expanduser("~") + "/" + input("What is the path (after home folder) to br-core's catkin_ws folder? >> ")
-		if os.path.exists(path) and os.path.exists(path + "/src"):
-			exists = True
-		elif os.path.exists(path) and not os.path.exists(path + "/src"):
-			print("The path you entered exists, but has no src directory.")
-			print("This may not be your br-core workspace.")
-			choice = input("Do you want to continue? [Y or N] >> ")
-
-			if choice == "Y":
-				exists = True
-			elif choice == "N":
-				print("Aborting.")
-			else:
-				print("Not a choice, exiting.")
-				sys.exit()
-		else:
-			print("That is not a path")
+	if shell_choice == "1":
+		shell = "bash"
+		exists = True
+	elif shell_choice == "2":
+		shell = "zsh"
+		exists = True
+	else:
+		print("Not an option.")
 
 exists = False
 
@@ -47,7 +36,7 @@ while not exists:
 		branch = "release"
 		exists = True
 	else:
-		print("Not a branch")
+		print("Not an option.")
 
 exists = False
 
@@ -61,7 +50,7 @@ while not exists:
 		arch = "arm64"
 		exists = True
 	else:
-		print("Not a branch")
+		print("Not an option.")
 
 build_list = []
 
@@ -88,6 +77,8 @@ for x in build_list:
 	count += 1
 	print(str(count) + ": " + x)
 
+print()
+
 exists = False
 
 while not exists:
@@ -103,24 +94,9 @@ while not exists:
 
 print ("Loading " + build_list[int(build_choice) - 1])
 
-if os.path.exists(path + "/install"):
-	print("Deleting old install dir.")
-	shutil.rmtree(path + "/install")
+print("Launching..... Have a nice day!")
 
-if os.path.exists(path + "/src"):
-	print("Deleting old src dir. Remember to re git clone when making new changes.")
-	shutil.rmtree(path + "/src")
+time.sleep(1)
 
-print("Copying install...")
-
-src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/install"
-dest = path + "/install"
-
-try:
-	shutil.copytree(src, dest)
-except shutil.Error as e:
-	print('Directory not copied, probably the same dir. Error: %s' % e)
-except OSError as e:
-	print('Directory not copied, probably doesnt exist. Error: %s' % e)
-
-print("Done..... Have a nice day!")
+sub = subprocess.Popen(["/bin/" + shell, "./run.sh", os.getcwd(), branch, build_list[int(build_choice) - 1], shell])
+sub.wait()
