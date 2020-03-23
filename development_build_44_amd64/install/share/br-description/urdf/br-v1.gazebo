@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot name="garbage-byte" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- http://gazebosim.org/tutorials/?tut=ros_urdf -->
+
+    <arg name="minDepth" default="0.0"/>
+    <arg name="maxVel"   default="10"/>
+
+    <gazebo reference="chassis">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <minDepth value="$(arg minDepth)"/>
+        <maxVel value="$(arg maxVel)"/>
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="right_wheel">
+        <mu1 value="0.8"/>
+        <mu2 value="0.8"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <minDepth value="$(arg minDepth)"/>
+        <maxVel value="$(arg maxVel)"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <mu1 value="0.8"/>
+        <mu2 value="0.8"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <minDepth value="$(arg minDepth)"/>
+        <maxVel value="$(arg maxVel)"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="front_caster">
+        <mu1 value="0.0"/>
+        <mu2 value="0.0"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <minDepth value="$(arg minDepth)"/>
+        <maxVel value="$(arg maxVel)"/>
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <gazebo reference="head">
+        <mu1 value="0.0"/>
+        <mu2 value="0.0"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <minDepth value="$(arg minDepth)"/>
+        <maxVel value="$(arg maxVel)"/>
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+</robot>
