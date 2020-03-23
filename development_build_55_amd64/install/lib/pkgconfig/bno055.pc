@@ -1,0 +1,8 @@
+prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/install
+
+Name: bno055
+Description: Description of bno055
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

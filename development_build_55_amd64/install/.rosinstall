@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/travis/build/BytesRobotics/br-core/catkin_ws/install/setup.sh

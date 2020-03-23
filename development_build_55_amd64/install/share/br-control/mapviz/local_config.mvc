@@ -1,0 +1,103 @@
+capture_directory: ~
+fixed_frame: odom
+target_frame: odom
+fix_orientation: false
+rotate_90: false
+enable_antialiasing: true
+show_displays: true
+show_status_bar: true
+show_capture_tools: true
+window_width: 2493
+window_height: 1385
+view_scale: 0.01567758
+offset_x: 10.91308
+offset_y: 0.4474054
+use_latest_transforms: true
+background: "#a0a0a4"
+displays:
+  - type: mapviz_plugins/tile_map
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      custom_sources:
+        []
+      bing_api_key: AgiEFIF7YJYX5mBDuysSIuiFLmUmWNAO6AVrnQMcr5bxCFlEIaqruqrry8kOOOn8
+      source: Bing Maps (terrain)
+  - type: mapviz_plugins/navsat
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /gps/filtered/utm
+      color: "#204a87"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/navsat
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /gps
+      color: "#00ff00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/filtered
+      color: "#5c3566"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 25
+      show_timestamps: 0
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /mobile_base_controller/odom
+      color: "#cc0000"
+      draw_style: lines
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 25
+      show_timestamps: 0
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/gps
+      color: "#f57900"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 25
+      show_timestamps: 0
+  - type: mapviz_plugins/robot_image
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      frame: base_link
+      image: /home/michael/Github/br-core/catkin_ws/src/br-control/mapviz/gb.png
+      width: 1
+      height: 1
+      offset_x: 0
+      offset_y: 0
+      ratio: original
