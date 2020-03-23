@@ -64,7 +64,7 @@ else:
 	for x in build_list:
 		x = x[len(branch) + 1:]
 		new_list.append(x)
-	build_list = new_list
+	build_list = sorted(new_list)
 
 print()
 
