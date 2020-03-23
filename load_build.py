@@ -52,6 +52,20 @@ while not exists:
 	else:
 		print("Not an option.")
 
+exists = False
+
+while not exists:
+	face_choice = input("Launch emotion_viewer [Y / N]? >> ")
+
+	if face_choice == "Y":
+		face = 1
+		exists = True
+	elif face_choice == "N":
+		face = 0
+		exists = True
+	else:
+		print("Not an option.")
+
 build_list = []
 
 for x in os.listdir(os.getcwd()):
@@ -98,5 +112,5 @@ print("Launching..... Have a nice day!")
 
 time.sleep(1)
 
-sub = subprocess.Popen(["/bin/" + shell, "./run.sh", os.getcwd(), branch, build_list[int(build_choice) - 1], shell])
+sub = subprocess.Popen(["/bin/" + shell, "./run.sh", os.getcwd(), branch, build_list[int(build_choice) - 1], shell, face])
 sub.wait()
