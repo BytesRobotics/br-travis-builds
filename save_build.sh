@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=$1_build_$4
+dir=$1_build_$4_$5
 
 mkdir $dir
 
