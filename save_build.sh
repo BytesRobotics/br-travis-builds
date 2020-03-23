@@ -5,7 +5,6 @@ dir=$1_build_$4_$5
 mkdir $dir
 
 cp -r $2/catkin_ws/install ./$dir/
-cp -r $2/catkin_ws/src ./$dir/
 
 number_of_dirs=$(ls -l ../ | grep -c ^d)
 

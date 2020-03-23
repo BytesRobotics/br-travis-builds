@@ -123,16 +123,4 @@ except shutil.Error as e:
 except OSError as e:
 	print('Directory not copied, probably doesnt exist. Error: %s' % e)
 
-print("Copying src...")
-
-src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/src"
-dest = path + "/src"
-
-try:
-	shutil.copytree(src, dest)
-except shutil.Error as e:
-	print('Directory not copied, probably the same dir. Error: %s' % e)
-except OSError as e:
-	print('Directory not copied, probably doesnt exist. Error: %s' % e)
-
 print("Done..... Have a nice day!")
