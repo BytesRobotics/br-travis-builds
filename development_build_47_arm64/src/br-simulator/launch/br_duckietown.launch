@@ -1,0 +1,53 @@
+<launch>
+
+  <arg name="data_collection" default="false"/>
+  <arg name="teleop" default="true"/>
+  <arg name="data_root_dir" default="/home/michael/Desktop"/>
+  <arg name="dataset_name" default="data"/>
+  <arg name="multicam" default="true"/>
+  <arg name="data_collection_rate" default="5"/>
+
+  <!-- Start gazebo simulation -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+    <arg name="world_name" value="$(find duckietown_gazebo)/worlds/main.world"/>
+  </include>
+
+  <!-- Spawn the robot in gazebo -->
+  <include file="$(find br-simulator)/launch/spawn_gb.launch" >
+    <arg name="x" value="0.0"/>
+    <arg name="y" value="2.0"/>
+    <arg name="z" value="0.2"/>
+  </include>
+
+  <!-- Start robot contorllers -->
+  <include file="$(find br-control)/launch/br_control.launch">
+    <arg name="rviz"  value="false"/>
+    <arg name="simulation_mode" value="true"/>
+  </include>
+
+  <!-- Start camera nodes -->
+  <include file="$(find br-perception)/launch/camera.launch">
+    <arg name="frame_id" value="camera_link"/>
+    <arg name="respawn" value="true"/>
+    <arg name="simulation_mode" value="true"/>
+  </include>
+
+  <include file="$(find br-perception)/launch/multicam.launch">
+    <arg name="simulation_mode" value="true"/>
+  </include>
+
+  <!-- teleop -->
+  <include if="$(arg teleop)" file="$(find br-control)/launch/br_teleop.launch"/>
+
+  <!-- data collection -->
+  <include if="$(arg data_collection)" file="$(find br-perception)/launch/data_collector.launch">
+    <arg name="data_root_dir" value="$(arg data_root_dir)"/>
+    <arg name="dataset_name" value="$(arg dataset_name)"/>
+    <arg name="multicam" value="$(arg multicam)"/>
+    <arg name="data_collection_rate" value="$(arg data_collection_rate)"/>
+  </include>
+
+  <!-- visualize robot using rviz -->
+  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find br-simulator)/rviz/br_sim.rviz" />
+
+</launch>
