@@ -1,2 +1,0 @@
-bno055:br-behavior-engine:br-control:br-description:br-hardware-interface:br-perception:br-simulator:duckietown-gazebo/duckietown_gazebo:launch_files:ros-power-ina219/power_ina219
--DCATKIN_BLACKLIST_PACKAGES=gb-simulator -DCATKIN_DEVEL_PREFIX=/home/travis/build/BytesRobotics/br-core/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/travis/build/BytesRobotics/br-core/catkin_ws/install -G Unix Makefiles

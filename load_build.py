@@ -49,10 +49,24 @@ while not exists:
 	else:
 		print("Not a branch")
 
+exists = False
+
+while not exists:
+	arch_choice = input("Which arch [AMD64:1 / ARM64:2]? >> ")
+
+	if arch_choice == "1":
+		arch = "amd64"
+		exists = True
+	elif arch_choice == "2":
+		arch = "arm64"
+		exists = True
+	else:
+		print("Not a branch")
+
 build_list = []
 
 for x in os.listdir(os.getcwd()):
-	if branch in x:
+	if branch in x and arch in x:
 		build_list.append(x)
 
 if len(build_list) == 0:

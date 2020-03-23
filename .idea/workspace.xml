@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd6bd53a-b9c4-4b0d-977b-74b9b395e81e" name="Default Changelist" comment="" />
+    <list default="true" id="dd6bd53a-b9c4-4b0d-977b-74b9b395e81e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_build.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_build.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +23,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Github/br-core" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -34,6 +37,7 @@
       <updated>1584912646386</updated>
       <workItem from="1584912650233" duration="1981000" />
       <workItem from="1584915170595" duration="4505000" />
+      <workItem from="1584944197256" duration="346000" />
     </task>
     <servers />
   </component>
@@ -45,5 +49,9 @@
       <screen x="67" y="27" width="2093" height="1413" />
     </state>
     <state x="896" y="491" width="424" height="484" key="FileChooserDialogImpl/67.27.2093.1413@67.27.2093.1413" timestamp="1584921661324" />
+    <state x="838" y="592" width="540" height="282" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1584944649891">
+      <screen x="67" y="27" width="2093" height="1413" />
+    </state>
+    <state x="838" y="592" width="540" height="282" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/67.27.2093.1413@67.27.2093.1413" timestamp="1584944649891" />
   </component>
 </project>

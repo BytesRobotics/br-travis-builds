@@ -1,8 +1,0 @@
-prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/devel
-
-Name: br-hardware-interface
-Description: Description of br-hardware-interface
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: roscpp hardware_interface
