@@ -6,46 +6,31 @@ os.system("git pull")
 
 print("WARNING: BY LOADING A BUILD, YOU ARE REMOVING THE SRC FOLDER FOR YOUR CURRENT BR-CORE REPO. MAKE SURE ALL CHANGES ARE COMMITED AND PUSHED.")
 
-if os.path.exists(os.path.expanduser("~") + "/Github/br-core/catkin_ws"):
-	print("Default path found.")
-	path = os.path.expanduser("~") + "/Github/br-core/catkin_ws"
+exists = False
 
-else:
-	print("Could not find default location for br-core repo, manual input required.")
-
-	exists = False
-
-	while not exists:
-		path = os.path.expanduser("~") + "/" + input("What is the path (after home folder) to br-core's catkin_ws folder? >> ")
-		if os.path.exists(path) and os.path.exists(path + "/src"):
-			exists = True
-		elif os.path.exists(path) and not os.path.exists(path + "/src"):
-			print("The path you entered exists, but has no src directory.")
-			print("This may not be your br-core workspace.")
-			choice = input("Do you want to continue? [Y or N] >> ")
-
-			if choice == "Y":
-				exists = True
-			elif choice == "N":
-				print("Aborting.")
-			else:
-				print("Not a choice, exiting.")
-				sys.exit()
-		else:
-			print("That is not a path")
+while not exists:
+	shell_choice = input("What is your shell [zsh:1 / bash:2]? >> ")
+	if "1" in shell_choice:
+		shell = "zsh"
+		exists = True
+	elif "2" in shell_choice:
+		shell = "bash"
+		exists = True
+	else:
+		print("Not a choice.")
 
 exists = False
 
 while not exists:
 	branch_choice = input("Which branch [master:1 / development:2 / release:3]? >> ")
 
-	if branch_choice == "1":
+	if "1" in branch_choice:
 		branch = "master"
 		exists = True
-	elif branch_choice == "2":
+	elif "2" in branch_choice:
 		branch = "development"
 		exists = True
-	elif branch_choice == "3":
+	elif "3" in branch_choice:
 		branch = "release"
 		exists = True
 	else:
@@ -56,10 +41,10 @@ exists = False
 while not exists:
 	arch_choice = input("Which arch [AMD64:1 / ARM64:2]? >> ")
 
-	if arch_choice == "1":
+	if "1" in arch_choice:
 		arch = "amd64"
 		exists = True
-	elif arch_choice == "2":
+	elif "2" in arch_choice:
 		arch = "arm64"
 		exists = True
 	else:
@@ -96,6 +81,7 @@ exists = False
 
 while not exists:
 	build_choice = input("Which build do you want? (Put the number not the name) >> ")
+	build_choice.rstrip()
 
 	try:
 		if int(build_choice) > len(build_list) or int(build_choice) <= 0:
@@ -107,20 +93,11 @@ while not exists:
 
 print ("Loading " + build_list[int(build_choice) - 1])
 
-if os.path.exists(path + "/install"):
-	print("Deleting old install dir.")
-	shutil.rmtree(path + "/install")
+print("Creating source script install...")
 
-print("Copying install...")
+if os.path.exists("./source.zsh"):
+	os.system("rm -rf source.zsh")
 
-src = os.getcwd() + "/" + branch + "_" + build_list[int(build_choice) - 1] + "/install"
-dest = path + "/install"
+os.system("echo 'source ./" + branch + "_" + build_list[int(build_choice) - 1] + "/install/setup." + shell + " && source .venv/bin/activate' > source.zsh")
 
-try:
-	shutil.copytree(src, dest)
-except shutil.Error as e:
-	print('Directory not copied, probably the same dir. Error: %s' % e)
-except OSError as e:
-	print('Directory not copied, probably doesnt exist. Error: %s' % e)
-
-print("Done..... Have a nice day!")
+print("Done..... Source source.zsh and roslaunch!")
