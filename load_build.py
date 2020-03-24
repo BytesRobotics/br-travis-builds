@@ -98,6 +98,6 @@ print("Creating source script install...")
 if os.path.exists("./source.zsh"):
 	os.system("rm -rf source.zsh")
 
-os.system("echo 'source ./" + branch + "_" + build_list[int(build_choice) - 1] + "/install/setup." + shell + " && source .venv/bin/activate' > source.zsh")
+os.system("echo 'source ./" + branch + "_" + build_list[int(build_choice) - 1] + "/install/setup." + shell + " && source .venv/bin/activate' > source." + shell)
 
-print("Done..... Source source.zsh and roslaunch!")
+print("Done..... Source source." + shell + " and roslaunch!")
