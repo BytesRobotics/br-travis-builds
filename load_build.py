@@ -2,6 +2,8 @@ import os
 import sys
 import shutil
 
+os.system("git pull")
+
 print("WARNING: BY LOADING A BUILD, YOU ARE REMOVING THE SRC FOLDER FOR YOUR CURRENT BR-CORE REPO. MAKE SURE ALL CHANGES ARE COMMITED AND PUSHED.")
 
 if os.path.exists(os.path.expanduser("~") + "/Github/br-core/catkin_ws"):
@@ -87,6 +89,8 @@ count = 0
 for x in build_list:
 	count += 1
 	print(str(count) + ": " + x)
+
+print()
 
 exists = False
 
