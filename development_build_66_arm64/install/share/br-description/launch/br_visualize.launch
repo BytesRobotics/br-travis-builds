@@ -1,0 +1,20 @@
+<launch>
+
+  <!-- Load robot urdf -->
+  <include file="$(find br-description)/launch/br_description.launch"/>
+
+  <!-- publish joint sensor states -->
+  <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher">
+    <!-- <remap from="/joint_states" to="/gb/joint_states"/> -->
+    <param name="use_gui" value="TRUE" />
+  </node>
+
+  <!-- publish robot tf tree -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <!-- <remap from="/joint_states" to="/gb/joint_states"/> -->
+  </node>
+
+  <!-- visualize robot using rviz -->
+  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find br-description)/rviz/br_visualize.rviz" />
+
+</launch>
