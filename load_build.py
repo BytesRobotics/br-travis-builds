@@ -9,7 +9,7 @@ print("WARNING: BY LOADING A BUILD, YOU ARE REMOVING THE SRC FOLDER FOR YOUR CUR
 exists = False
 
 while not exists:
-	shell_choice = input("What is your shell [zsh:1 / bash:2]? >> ")
+	shell_choice = raw_input("What is your shell [zsh:1 / bash:2]? >> ")
 	if "1" in shell_choice:
 		shell = "zsh"
 		exists = True
@@ -22,7 +22,7 @@ while not exists:
 exists = False
 
 while not exists:
-	branch_choice = input("Which branch [master:1 / development:2 / release:3]? >> ")
+	branch_choice = raw_input("Which branch [master:1 / development:2 / release:3]? >> ")
 
 	if "1" in branch_choice:
 		branch = "master"
@@ -39,7 +39,7 @@ while not exists:
 exists = False
 
 while not exists:
-	arch_choice = input("Which arch [AMD64:1 / ARM64:2]? >> ")
+	arch_choice = raw_input("Which arch [AMD64:1 / ARM64:2]? >> ")
 
 	if "1" in arch_choice:
 		arch = "amd64"
@@ -80,7 +80,7 @@ print()
 exists = False
 
 while not exists:
-	build_choice = input("Which build do you want? (Put the number not the name) >> ")
+	build_choice = raw_input("Which build do you want? (Put the number not the name) >> ")
 	build_choice.rstrip()
 
 	try:
