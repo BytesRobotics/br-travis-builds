@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd6bd53a-b9c4-4b0d-977b-74b9b395e81e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/ROS.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/ROS.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../save_build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../save_build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../run.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +26,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -45,7 +48,7 @@
       <workItem from="1584944197256" duration="7662000" />
       <workItem from="1584999956835" duration="310000" />
       <workItem from="1585017644445" duration="267000" />
-      <workItem from="1586630724605" duration="740000" />
+      <workItem from="1586630724605" duration="2124000" />
     </task>
     <servers />
   </component>

@@ -2,6 +2,7 @@ source $1/$2_$3/install/setup.$4
 
 if [ $5 = "Yes" ]
 then
+  source opt/ros/melodic
   roslaunch launch_files br.launch face:=true
 fi
 

@@ -4,7 +4,7 @@ dir=$1_build_$4_$5
 
 mkdir $dir
 
-if [ $ROS_DISTRO = ='melodic']
+if [ $ROS_DISTRO == 'melodic']
 then
   cp -r $2/catkin_ws/install ./$dir/
 fi
