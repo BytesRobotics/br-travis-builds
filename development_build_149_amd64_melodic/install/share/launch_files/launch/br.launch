@@ -1,0 +1,45 @@
+<launch>
+
+    <arg name="face" default="false"/>
+    <arg name="microphone" default="true"/>
+    <arg name="rviz" default="false"/>
+    <arg name="speaker" default="12"/>
+    <arg name="speaker_channels" default="2"/>
+
+    <!-- drive system -->
+    <include file="$(find br-hardware-interface)/launch/roscontrol_hw_interface.launch"/>
+    <include file="$(find br-control)/launch/br_control.launch">
+        <arg name="rviz" value="$(arg rviz)"/>
+    </include>
+
+    <include file="$(find br-control)/launch/br_teleop.launch"/>
+
+    <!-- sensors and perception -->
+
+    <node pkg="bno055" type="bno055_ros.py" name="imu_node" respawn="true" respawn_delay="5">
+	<param name="load_calibration" value="true"/>
+    </node>
+
+    <node pkg="power_ina219" type="ina219_node" name="power_node" respawn="true" respawn_delay="5"/>
+    
+    <include file="$(find br-perception)/launch/camera.launch">
+        <arg name="respawn" value="true"/>
+    </include>
+
+    <!-- localization ekf and nav sat stuff -->
+    <include file="$(find br-localization)/launch/br_localization.launch">
+        <arg name="simulation_mode" value="false"/>
+    </include>
+
+
+    <!-- behavior engine -->
+    <node if="$(arg face)" pkg="br_behavior_engine" type="emotion_viewer.py" name="emotion_viewer"/>
+    <node pkg="br_behavior_engine" type="finite_emotion_engine.py" name="finite_emotion_engine"/>
+    <!-- <node if="$(arg microphone)" pkg="br-behavior-engine" type="microphone_input.py" name="mic_node"  output="screen"/> -->
+    
+    <!--  CAELINS WEB STUFF  -->
+<!--  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/> -->
+<!-- 	 Not needed for Rocos viewing -->
+<!--   <node pkg="web_video_server" type="web_video_server" name="camera_broadcast" output="screen"/>
+     -->
+</launch>
