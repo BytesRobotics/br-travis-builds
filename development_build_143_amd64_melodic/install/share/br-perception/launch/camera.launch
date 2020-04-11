@@ -1,0 +1,144 @@
+<launch>
+
+    <!-- Command Line Arguments -->
+  <arg name="simulation_mode" default="false"/>               <!-- Allow simulation to launch camera without the hardware part (just use image proc) -->
+  <arg name="respawn" default="true"/>
+  <arg name="image_view" default="false"/>
+  <arg name="stereo_calculations" default="false"/>
+
+  <!-- no bond if respawn is not set to true -->
+  <arg if="$(arg respawn)" name="bond" value="" />
+  <arg unless="$(arg respawn)" name="bond" value="--no-bond" />
+
+  <node unless="$(arg simulation_mode)" name="gscam_udp" type="gscam.py" pkg="br-perception"/> <!-- Launches gstreamer pipeline to enable tee for low latency h264 streaming-->
+
+  <node pkg="nodelet" type="nodelet" name="vision_nodelet"  args="manager" output="screen"/> <!-- nodelet for zero copy transfer of images between image processing nodes -->
+
+  <node name="stereo_view" type="stereo_view" pkg="image_view" if="$(arg image_view)">
+    <remap from="/stereo/left/image" to="/stereo/left/image_rect_color"/>
+    <remap from="/stereo/right/image" to="/stereo/right/image_rect_color"/>
+    <param name="approximate_sync" value="true"/>
+  </node>
+
+  <!-- The left camera is the main camera used for teleop and image recognition -->
+  <group ns="stereo">
+
+    <!-- Start stereo image proc node -->
+
+    <!-- Basic processing for left camera -->
+    <include file="$(find image_proc)/launch/image_proc.launch" ns="left">
+      <arg name="manager" value="/vision_nodelet" />
+      <arg name="respawn" value="$(arg respawn)"/>
+    </include>
+
+     <!-- Resize the image to require less compute and be able to rosbag properly -->
+    <node pkg="nodelet" type="nodelet" name="resize" ns="left" respawn="$(arg respawn)" args="load image_proc/resize /vision_nodelet $(arg bond)" >
+      <remap from="image" to="image_rect"/>
+      <remap from="camera_info" to="camera_info"/>
+      <param name="use_scale" value="false"/>
+      <param name="height" value="360"/>
+      <param name="width" value="640"/>
+    </node>
+
+    <!-- Basic processing for right camera-->
+    <include file="$(find image_proc)/launch/image_proc.launch" ns="right">
+      <arg name="manager" value="/vision_nodelet" />
+      <arg name="respawn" value="$(arg respawn)"/>
+    </include>
+
+      <!-- Resize the image to require less compute and be able to rosbag properly -->
+    <node pkg="nodelet" type="nodelet" name="resize" ns="right" respawn="$(arg respawn)" args="load image_proc/resize /vision_nodelet $(arg bond)" >
+      <remap from="image" to="image_rect"/>
+      <remap from="camera_info" to="camera_info"/>
+      <param name="use_scale" value="false"/>
+      <param name="height" value="360"/>
+      <param name="width" value="640"/>
+    </node>
+
+
+    <!-- Disparity image -->
+    <node if="$(arg stereo_calculations)" pkg="nodelet" type="nodelet" name="disparity" respawn="$(arg respawn)" args="load stereo_image_proc/disparity /vision_nodelet $(arg bond)" >
+      <param name="approximate_sync" value="true" />
+    </node>
+
+    <!-- PointCloud2 -->
+    <node if="$(arg stereo_calculations)" pkg="nodelet" type="nodelet" name="point_cloud2" respawn="$(arg respawn)" args="load stereo_image_proc/point_cloud2 /vision_nodelet $(arg bond)">
+      <param name="approximate_sync" value="true" />
+    </node>
+
+    <!-- run laserscan_to_pointcloud nodelet -->
+    <node if="$(arg stereo_calculations)" pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan" respawn="$(arg respawn)" args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet /vision_nodelet $(arg bond)">
+        <remap from="cloud_in" to="points2"/>
+        <remap from="scan" to="scan"/>
+        <rosparam>
+            target_frame: stereo/left_link # Leave disabled to output scan in pointcloud frame
+            transform_tolerance: 0.01
+            min_height: -0.2
+            max_height: 1.0
+
+            correlation_window_size: 21 # dont go above 21 as performance will be hurt. default 15
+            uniqueness_ratio: 15 # default 15
+            prefilter_size: 9 # default 9
+            prefilter_cap: 31 # default 31
+            speckle_size: 100 # default 100
+            speckle_range: 4 # Groups disparity regions based on their connectedness. Disparities are grouped together in the same region if they are within this distance in pixels. default 4
+
+
+            angle_min: -1.5708 # -M_PI/2
+            angle_max: 1.5708 # M_PI/2
+            angle_increment: 0.0087 # M_PI/360.0
+            scan_time: 0.3333
+            range_min: 0.3
+            range_max: 10.0
+            use_inf: true
+            inf_epsilon: 1.0
+
+            # Concurrency level, affects number of pointclouds queued for processing, thread number governed by nodelet manager
+            # 0 : Detect number of cores
+            # 1 : Single threaded
+            # 2->inf : Parallelism level
+            concurrency_level: 0
+        </rosparam>
+    </node>
+
+    <!-- Disparity to depth image (check available nodelets with `rosrun nodelet declared_nodelets`) -->
+    <!-- This nodelet currently does not work -->
+<!--    <node pkg="nodelet" type="nodelet" name="disparity_to_depth" args="load disparity_to_depth/DisparityToDepth /vision_nodelet &#45;&#45;no-bond" >-->
+<!--      <param name="approximate_sync" value="true" />-->
+<!--    </node>-->
+
+    <!-- Start the cameras -->
+
+    <node unless="$(arg simulation_mode)" pkg="nodelet" type="nodelet" name="GSCamNodelet_right" respawn="$(arg respawn)" args="load gscam/GSCamNodelet /vision_nodelet $(arg bond)">
+        <param name="gscam_config" value="udpsrc port=5000 ! application/x-rtp,encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert"/>
+        <param name="camera_name" value="right" />
+        <param name="frame_id" value="stereo/right_link_optical" />
+        <param name="sync_sink" value="true" /> <!-- Synchronize the app sink. Setting this to false may resolve problems with sub-par frame rates. -->
+        <param name="camera_info_url" value="package://br-perception/config/ost_right.yaml" />
+        <remap from="camera/image_raw" to="right/image_raw"/>
+        <remap from="camera/camera_info" to="right/camera_info"/>
+        <remap from="set_camera_info" to="right/set_camera_info"/>
+    </node>
+
+    <param name="/stereo/right/image_rect/compressed/jpeg_quality" value="10"/>
+
+    <!-- The right camera is solely used to provide another frame for the stereo camera processing -->
+    <!-- Make arguments available to parameter server -->
+    <arg name="cam_name"  default="left" />             <!-- The name of the camera (corresponding to the camera info) -->
+    <arg name="frame_id"  default="stereo/left_link_optical" />    <!-- The TF frame ID. -->
+    <arg name="sync_sink" default="true" />
+
+    <node unless="$(arg simulation_mode)" pkg="nodelet" type="nodelet" name="GSCamNodelet_left" respawn="$(arg respawn)" args="load gscam/GSCamNodelet /vision_nodelet $(arg bond)">
+      <param name="gscam_config" value="nvarguscamerasrc sensor-id=1 ! video/x-raw(memory:NVMM), width=(int)1280, height=(int)720, format=(string)NV12, framerate=(fraction)15/1 ! nvvidconv flip-method=2 ! video/x-raw, format=(string)BGRx ! videoconvert"/>
+      <param name="camera_name" value="left" />
+      <param name="frame_id" value="stereo/left_link_optical" />
+      <param name="sync_sink" value="true" />  <!-- Synchronize the app sink. Setting this to false may resolve problems with sub-par frame rates. -->
+      <param name="camera_info_url" value="package://br-perception/config/ost_left.yaml" />
+      <remap from="camera/image_raw" to="left/image_raw"/>
+      <remap from="camera/camera_info" to="left/camera_info"/>
+      <remap from="set_camera_info" to="left/set_camera_info"/>
+    </node>
+
+  </group>
+
+</launch>
