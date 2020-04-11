@@ -1,15 +1,22 @@
 #!/bin/bash
 
-dir=$1_build_$4_$5
+# $1 travis branch
+# $2 ci source path
+# $3 Git token
+# $4 travis build number
+# $5 CPU Architecture
+# $6 ROS distro
+
+dir=$1_build_$4_$5_$6
 
 mkdir $dir
 
-if [ $ROS_DISTRO == 'melodic' ]
+if [ $6 == 'melodic' ]
 then
   cp -r $2/catkin_ws/install ./$dir/
 fi
 
-if [ $ROS_DISTRO == 'eloquent' ]
+if [ $6 == 'eloquent' ]
 then
   cp -r $2/ros2_ws/install ./$dir/
 fi
