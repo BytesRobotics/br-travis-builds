@@ -4,7 +4,15 @@ dir=$1_build_$4_$5
 
 mkdir $dir
 
-cp -r $2/catkin_ws/install ./$dir/
+if [ $ROS_DISTRO = ='melodic']
+then
+  cp -r $2/catkin_ws/install ./$dir/
+fi
+
+if [ $ROS_DISTRO = ='eloquent']
+then
+  cp -r $2/ros2_ws/install ./$dir/
+fi
 
 number_of_dirs=$(ls -l ../ | grep -c ^d)
 
