@@ -16,12 +16,12 @@ mkdir $dir
 
 if [ $6 == 'melodic' ]
 then
-  mv -r $2/catkin_ws/install ./$dir/
+  mv $2/catkin_ws/install ./$dir/
 fi
 
 if [ $6 == 'eloquent' ]
 then
-  mv -r $2/ros2_ws/install ./$dir/
+  mv $2/ros2_ws/install ./$dir/
 fi
 
 git config --global user.email "travis@travis-ci.org"
