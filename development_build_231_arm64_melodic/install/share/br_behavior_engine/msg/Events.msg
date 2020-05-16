@@ -1,0 +1,2 @@
+bool video
+bool wifi

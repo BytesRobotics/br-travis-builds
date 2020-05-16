@@ -1,0 +1,6 @@
+<launch>
+
+    <node pkg="br_behavior_engine" type="emotion_viewer.py" name="emotion_viewer" output="screen"/>
+    <node pkg="br_behavior_engine" type="finite_emotion_engine.py" name="finite_emotion_engine" output="screen"/>
+
+</launch>
