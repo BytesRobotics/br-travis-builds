@@ -7,6 +7,9 @@
 # $5 CPU Architecture
 # $6 ROS distro
 
+let "a = $4 - 1"
+sudo rm -R development_build_${a}_*
+
 dir=$1_build_$4_$5_$6
 
 mkdir $dir
