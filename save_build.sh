@@ -16,19 +16,12 @@ mkdir $dir
 
 if [ $6 == 'melodic' ]
 then
-  cp -r $2/catkin_ws/install ./$dir/
+  mv -r $2/catkin_ws/install ./$dir/
 fi
 
 if [ $6 == 'eloquent' ]
 then
-  cp -r $2/ros2_ws/install ./$dir/
-fi
-
-number_of_dirs=$(ls -l ../ | grep -c ^d)
-
-if [ $number_of_dirs -gt 40 ]
-then
-  echo "COMPRESS OLD FOLDERS PLZ I NO GOOD AT SHELL SCRIPTS" >> ./compress.txt
+  mv -r $2/ros2_ws/install ./$dir/
 fi
 
 git config --global user.email "travis@travis-ci.org"
