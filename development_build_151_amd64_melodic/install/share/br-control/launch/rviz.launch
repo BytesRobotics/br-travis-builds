@@ -1,3 +1,0 @@
-<launch>
-  <node name="rviz" type="rviz" pkg="rviz" args="-d $(find br-control)/rviz/br_viz.rviz" />
-</launch>

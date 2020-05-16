@@ -1,7 +1,0 @@
-<launch>
-      <!-- urdf xml robot description loaded on the Parameter Server, converting the xacro into a proper urdf file-->
-      <arg name="robot" default="br-v1.xacro"/>
-
-      <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find br-description)/urdf/$(arg robot)'" />
-
-</launch>
