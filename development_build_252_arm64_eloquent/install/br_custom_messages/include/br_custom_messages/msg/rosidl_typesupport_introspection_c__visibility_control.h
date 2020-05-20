@@ -1,0 +1,1 @@
+/home/travis/build/BytesRobotics/br-core/ros2_ws/build/br_custom_messages/rosidl_typesupport_introspection_c/br_custom_messages/msg/rosidl_typesupport_introspection_c__visibility_control.h
