@@ -1,0 +1,8 @@
+prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/install
+
+Name: utils
+Description: Description of utils
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
