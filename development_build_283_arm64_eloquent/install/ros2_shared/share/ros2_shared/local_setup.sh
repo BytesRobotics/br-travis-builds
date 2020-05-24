@@ -1,0 +1,1 @@
+/home/travis/build/BytesRobotics/br-core/ros2_ws/build/ros2_shared/ament_cmake_environment_hooks/local_setup.sh

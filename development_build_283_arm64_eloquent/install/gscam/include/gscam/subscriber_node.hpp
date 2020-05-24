@@ -1,0 +1,1 @@
+/home/travis/build/BytesRobotics/br-core/ros2_ws/src/gscam2/include/gscam/subscriber_node.hpp
