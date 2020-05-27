@@ -1,8 +1,0 @@
-prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/install
-
-Name: br-simulator
-Description: Description of br-simulator
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
