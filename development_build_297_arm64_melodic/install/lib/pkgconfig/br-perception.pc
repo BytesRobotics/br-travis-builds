@@ -1,8 +1,0 @@
-prefix=/home/travis/build/BytesRobotics/br-core/catkin_ws/install
-
-Name: br-perception
-Description: Description of br-perception
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib -lDisparityToDepth
-Requires: nodelet cv_bridge roscpp
